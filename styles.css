@@ -342,6 +342,40 @@ a { color: inherit; }
 .prompt-box { display: grid; align-content: space-between; min-height: 260px; background: var(--violet); color: #ffffff; }
 .prompt-box p:last-child { margin: 0; font-size: clamp(1.55rem, 3vw, 2.35rem); font-weight: 800; line-height: 1.08; }
 
+.admin-card {
+  display: grid;
+  gap: 1rem;
+  padding: clamp(1rem, 3vw, 1.5rem);
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: var(--paper-strong);
+  box-shadow: var(--shadow);
+}
+
+.admin-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.7rem;
+}
+
+.status-line {
+  margin: 0;
+  color: var(--muted);
+  font-family: "IBM Plex Mono", monospace;
+  font-size: 0.82rem;
+  font-weight: 700;
+  line-height: 1.5;
+}
+
+.status-line[data-tone="good"] { color: var(--kelp); }
+.status-line[data-tone="bad"] { color: #8f2f20; }
+
+button:disabled {
+  cursor: not-allowed;
+  opacity: 0.52;
+  transform: none;
+}
+
 .library-head { margin-top: clamp(2rem, 5vw, 3.5rem); padding-bottom: 0.9rem; border-bottom: 1px solid var(--line); }
 .library-head h3 { font-size: clamp(1.5rem, 3vw, 2.2rem); }
 .library-actions { margin-top: 0; }

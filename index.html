@@ -214,12 +214,24 @@
               <p class="prompt-card__label">Nudge</p>
               <p id="studioPrompt">Write four lines about something you are avoiding.</p>
             </div>
+            <div class="admin-card">
+              <p class="prompt-card__label">Admin Key</p>
+              <label class="field">Private studio access
+                <input id="adminKeyInput" type="password" autocomplete="current-password" placeholder="Enter your studio key" />
+              </label>
+              <div class="admin-actions">
+                <button class="button button--primary" id="saveAdminKeyButton" type="button">Unlock studio</button>
+                <button class="button button--quiet" id="forgetAdminKeyButton" type="button">Lock</button>
+              </div>
+              <p class="status-line" id="adminStatus">Visitors can read published work only.</p>
+            </div>
             <div class="studio-note">
               <p class="prompt-card__label">Publish Flow</p>
               <p>
-                Mark an item Published to make it appear below. Export Markdown
-                into content/ and JSON backups into data/ when you are ready.
+                Published work appears below for visitors. Drafting, publishing,
+                deleting, and clearing require your private admin key.
               </p>
+              <p class="status-line" id="syncStatus">Loading saved work...</p>
             </div>
           </aside>
         </div>
@@ -322,7 +334,9 @@
     </footer>
 
     <script>
-      const storageKey = "jeradxyz.library";
+      const storageKey = "jeradxyz.library.cache";
+      const adminKeyStorageKey = "jeradxyz.adminKey";
+      const apiPath = "/api/library";
       const prompts = {
         poem: [
           "Write four lines about something you are avoiding.",
@@ -386,8 +400,18 @@
         publicVisuals: document.querySelector("#publicVisuals"),
         exportJson: document.querySelector("#exportJsonButton"),
         clearLibrary: document.querySelector("#clearLibraryButton"),
-        counts: document.querySelectorAll("[data-kind-card] em")
+        adminKey: document.querySelector("#adminKeyInput"),
+        saveAdminKey: document.querySelector("#saveAdminKeyButton"),
+        forgetAdminKey: document.querySelector("#forgetAdminKeyButton"),
+        adminStatus: document.querySelector("#adminStatus"),
+        syncStatus: document.querySelector("#syncStatus"),
+        writeButtons: document.querySelectorAll('.creator-panel button[type="submit"], button[data-action="publish"], #clearLibraryButton')
       };
+
+      let libraryItems = [];
+      let adminKey = localStorage.getItem(adminKeyStorageKey) || "";
+      let isAdmin = false;
+      const hasServerApi = location.protocol !== "file:";
 
       const escapeHtml = (value = "") =>
         String(value).replace(/[&<>"]/g, (character) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[character]));
@@ -396,21 +420,59 @@
         value.toLowerCase().trim().replace(/['"]/g, "").replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "") || "untitled";
 
       const today = () => new Date().toISOString().slice(0, 10);
-      const getItems = () => JSON.parse(localStorage.getItem(storageKey) || "null") || starterItems;
-      const setItems = (items) => localStorage.setItem(storageKey, JSON.stringify(items));
       const parseTags = (value = "") => value.split(",").map((tag) => tag.trim()).filter(Boolean);
-      const readFileAsDataUrl = (file) => new Promise((resolve) => {
+      const cacheItems = (items) => localStorage.setItem(storageKey, JSON.stringify(items));
+      const cachedItems = () => JSON.parse(localStorage.getItem(storageKey) || "null") || starterItems;
+      const readFileAsDataUrl = (file) => new Promise((resolve, reject) => {
         if (!file) return resolve("");
         const reader = new FileReader();
         reader.onload = () => resolve(reader.result);
+        reader.onerror = reject;
         reader.readAsDataURL(file);
       });
-      const readFileAsText = (file) => new Promise((resolve) => {
+      const readFileAsText = (file) => new Promise((resolve, reject) => {
         if (!file) return resolve("");
         const reader = new FileReader();
         reader.onload = () => resolve(reader.result);
+        reader.onerror = reject;
         reader.readAsText(file);
       });
+
+      const setStatus = (message, tone = "") => {
+        elements.syncStatus.textContent = message;
+        elements.syncStatus.dataset.tone = tone;
+      };
+
+      const setAdminStatus = (message, tone = "") => {
+        elements.adminStatus.textContent = message;
+        elements.adminStatus.dataset.tone = tone;
+      };
+
+      const apiRequest = async (method = "GET", body) => {
+        const headers = { "Accept": "application/json" };
+        if (body) headers["Content-Type"] = "application/json";
+        if (adminKey) headers["x-admin-key"] = adminKey;
+
+        const response = await fetch(apiPath, {
+          method,
+          headers,
+          body: body ? JSON.stringify(body) : undefined
+        });
+
+        let payload = null;
+        try {
+          payload = await response.json();
+        } catch (error) {
+          payload = { error: response.statusText };
+        }
+
+        if (!response.ok) {
+          const message = payload?.error || `Request failed (${response.status})`;
+          throw new Error(message);
+        }
+
+        return payload;
+      };
 
       const itemToMarkdown = (item) => {
         const title = item.title || "Untitled";
@@ -442,11 +504,30 @@
         document.querySelector("#photoCount").textContent = items.filter((item) => item.kind === "photo").length;
       };
 
-      const renderLibrary = () => {
-        const items = getItems().sort((a, b) => (b.updated || "").localeCompare(a.updated || ""));
-        updateCardCounts(items);
-        elements.library.innerHTML = items.length ? "" : emptyCard("No saved work yet.");
+      const updateAuthUi = () => {
+        elements.adminKey.value = adminKey;
+        elements.clearLibrary.disabled = !isAdmin;
+        document.querySelectorAll('.creator-panel button[type="submit"]').forEach((button) => {
+          button.disabled = !isAdmin;
+          button.title = isAdmin ? "" : "Enter the admin key to save.";
+        });
+        if (isAdmin) {
+          setAdminStatus("Studio unlocked. You can save, publish, and delete.", "good");
+        } else {
+          setAdminStatus("Visitors can read published work only.", "");
+        }
+      };
 
+      const renderLibrary = () => {
+        const items = [...libraryItems].sort((a, b) => (b.updated || "").localeCompare(a.updated || ""));
+        updateCardCounts(items);
+
+        if (!isAdmin) {
+          elements.library.innerHTML = emptyCard("Enter the admin key to manage drafts and saved work. Published items are visible below.");
+          return;
+        }
+
+        elements.library.innerHTML = items.length ? "" : emptyCard("No saved work yet.");
         items.forEach((item) => {
           const card = document.createElement("article");
           card.className = "library-card";
@@ -469,7 +550,7 @@
       };
 
       const renderPublic = () => {
-        const published = getItems().filter((item) => item.status === "published");
+        const published = libraryItems.filter((item) => item.status === "published");
         const poems = published.filter((item) => item.kind === "poem");
         const posts = published.filter((item) => item.kind === "post");
         const visuals = published.filter((item) => ["photo", "illustration"].includes(item.kind));
@@ -517,11 +598,42 @@
       };
 
       const renderAll = () => {
+        updateAuthUi();
         renderLibrary();
         renderPublic();
       };
 
+      const loadLibrary = async () => {
+        if (!hasServerApi) {
+          libraryItems = cachedItems();
+          isAdmin = Boolean(adminKey);
+          setStatus("Local file preview: saves stay in this browser only.");
+          renderAll();
+          return;
+        }
+
+        try {
+          const payload = await apiRequest("GET");
+          libraryItems = payload.items || [];
+          isAdmin = payload.mode === "admin";
+          cacheItems(libraryItems);
+          setStatus(isAdmin ? "Loaded all saved work from Netlify." : "Loaded published work from Netlify.", "good");
+        } catch (error) {
+          isAdmin = false;
+          libraryItems = cachedItems().filter((item) => item.status === "published");
+          setStatus(`${error.message}. Showing cached published work.`, "bad");
+          if (adminKey) setAdminStatus("That admin key was not accepted.", "bad");
+        }
+
+        renderAll();
+      };
+
       const saveForm = async (form) => {
+        if (!isAdmin) {
+          setStatus("Enter the admin key before saving.", "bad");
+          return;
+        }
+
         const data = new FormData(form);
         const kind = form.dataset.kind;
         const textFile = data.get("textFile");
@@ -531,7 +643,6 @@
         const imageUrl = uploadedImage || data.get("imageUrl") || "";
         const title = data.get("title")?.trim() || `${kind[0].toUpperCase()}${kind.slice(1)} ${today()}`;
         const item = {
-          id: crypto.randomUUID(),
           kind,
           title,
           status: data.get("status") || "draft",
@@ -542,14 +653,22 @@
           source: data.get("source") || "",
           place: data.get("place") || "",
           eventDate: data.get("eventDate") || "",
-          people: data.get("people") || "",
-          created: today(),
-          updated: new Date().toISOString()
+          people: data.get("people") || ""
         };
 
-        setItems([item, ...getItems()]);
-        form.reset();
-        renderAll();
+        try {
+          setStatus("Saving to Netlify...");
+          const payload = hasServerApi
+            ? await apiRequest("POST", { item })
+            : { items: [Object.assign({ id: crypto.randomUUID(), created: today(), updated: new Date().toISOString() }, item), ...libraryItems] };
+          libraryItems = payload.items || [];
+          cacheItems(libraryItems);
+          form.reset();
+          setStatus(`Saved ${kind}.`, "good");
+          renderAll();
+        } catch (error) {
+          setStatus(error.message, "bad");
+        }
       };
 
       document.querySelectorAll(".creator-panel").forEach((form) => {
@@ -592,42 +711,91 @@
         });
       });
 
-      elements.library.addEventListener("click", (event) => {
+      elements.saveAdminKey.addEventListener("click", async () => {
+        adminKey = elements.adminKey.value.trim();
+        if (!adminKey) {
+          localStorage.removeItem(adminKeyStorageKey);
+          isAdmin = false;
+          renderAll();
+          return;
+        }
+
+        localStorage.setItem(adminKeyStorageKey, adminKey);
+        setAdminStatus("Checking key...");
+        await loadLibrary();
+      });
+
+      elements.forgetAdminKey.addEventListener("click", async () => {
+        adminKey = "";
+        localStorage.removeItem(adminKeyStorageKey);
+        isAdmin = false;
+        await loadLibrary();
+      });
+
+      elements.library.addEventListener("click", async (event) => {
         const button = event.target.closest("button[data-action]");
         if (!button) return;
-        const items = getItems();
-        const item = items.find((entry) => entry.id === button.dataset.id);
+        const item = libraryItems.find((entry) => entry.id === button.dataset.id);
         if (!item) return;
-
-        if (button.dataset.action === "publish") {
-          item.status = item.status === "published" ? "draft" : "published";
-          item.updated = new Date().toISOString();
-          setItems(items);
-        }
 
         if (button.dataset.action === "export") {
           downloadText(`${item.created || today()}-${slugify(item.title)}.md`, itemToMarkdown(item), "text/markdown");
+          return;
         }
 
-        if (button.dataset.action === "delete") {
-          setItems(items.filter((entry) => entry.id !== item.id));
+        if (!isAdmin) {
+          setStatus("Enter the admin key before changing saved work.", "bad");
+          return;
         }
 
-        renderAll();
+        try {
+          if (button.dataset.action === "publish") {
+            const payload = await apiRequest("PATCH", {
+              id: item.id,
+              updates: { status: item.status === "published" ? "draft" : "published" }
+            });
+            libraryItems = payload.items || [];
+            setStatus("Publish state updated.", "good");
+          }
+
+          if (button.dataset.action === "delete") {
+            const payload = await apiRequest("DELETE", { id: item.id });
+            libraryItems = payload.items || [];
+            setStatus("Item deleted.", "good");
+          }
+
+          cacheItems(libraryItems);
+          renderAll();
+        } catch (error) {
+          setStatus(error.message, "bad");
+        }
       });
 
       elements.exportJson.addEventListener("click", () => {
-        downloadText(`jeradxyz-library-${today()}.json`, JSON.stringify(getItems(), null, 2), "application/json");
+        downloadText(`jeradxyz-library-${today()}.json`, JSON.stringify(libraryItems, null, 2), "application/json");
       });
 
-      elements.clearLibrary.addEventListener("click", () => {
-        const confirmed = confirm("Clear all saved studio items from this browser?");
+      elements.clearLibrary.addEventListener("click", async () => {
+        if (!isAdmin) {
+          setStatus("Enter the admin key before clearing saved work.", "bad");
+          return;
+        }
+        const confirmed = confirm("Clear all saved studio items from Netlify?");
         if (!confirmed) return;
-        setItems([]);
-        renderAll();
+
+        try {
+          const payload = await apiRequest("DELETE", { all: true });
+          libraryItems = payload.items || [];
+          cacheItems(libraryItems);
+          setStatus("Library cleared.", "good");
+          renderAll();
+        } catch (error) {
+          setStatus(error.message, "bad");
+        }
       });
 
-      renderAll();
+      if (adminKey) elements.adminKey.value = adminKey;
+      loadLibrary();
     </script>
   </body>
 </html>
