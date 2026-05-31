@@ -1,0 +1,251 @@
+:root {
+  --ink: #17201d;
+  --muted: #5f6965;
+  --paper: #f6f5ef;
+  --line: #d7d1c4;
+  --kelp: #24483d;
+  --tide: #2c7182;
+  --sun: #efb84a;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  color: var(--ink);
+  background: var(--paper);
+  font-family: "Inter", Arial, sans-serif;
+}
+
+img {
+  display: block;
+  max-width: 100%;
+}
+
+a {
+  color: inherit;
+}
+
+.site-header {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1rem;
+  padding: 1rem clamp(1rem, 4vw, 3rem);
+  border-bottom: 1px solid var(--line);
+  background: rgba(246, 245, 239, 0.92);
+  backdrop-filter: blur(14px);
+}
+
+.brand,
+.eyebrow,
+.section-kicker,
+.path span {
+  font-family: "IBM Plex Mono", monospace;
+  font-weight: 600;
+  letter-spacing: 0.07em;
+  text-transform: uppercase;
+}
+
+.brand {
+  font-size: 0.84rem;
+  text-decoration: none;
+}
+
+nav {
+  display: flex;
+  gap: clamp(0.8rem, 2vw, 1.4rem);
+  color: var(--kelp);
+  font-size: 0.92rem;
+  font-weight: 700;
+}
+
+nav a {
+  text-decoration-thickness: 1px;
+  text-underline-offset: 0.28em;
+}
+
+.hero {
+  width: min(1280px, calc(100% - 2rem));
+  margin: 0 auto;
+  padding: clamp(1rem, 3vw, 2rem) 0 clamp(2rem, 6vw, 4rem);
+}
+
+.hero__poster {
+  margin: 0;
+  border-radius: 10px;
+  overflow: hidden;
+  background: #0b1819;
+  box-shadow: 0 22px 60px rgba(23, 32, 29, 0.18);
+}
+
+.hero__poster img {
+  width: 100%;
+  height: auto;
+}
+
+.hero__content {
+  display: grid;
+  grid-template-columns: minmax(0, 0.95fr) minmax(0, 1.05fr);
+  gap: clamp(1rem, 4vw, 3rem);
+  align-items: end;
+  margin-top: clamp(1.5rem, 4vw, 3rem);
+}
+
+.eyebrow,
+.section-kicker {
+  margin: 0 0 0.8rem;
+  font-size: 0.78rem;
+}
+
+h1,
+h2 {
+  margin: 0;
+  line-height: 0.98;
+}
+
+h1 {
+  max-width: 11ch;
+  font-size: clamp(2.7rem, 7vw, 5.8rem);
+}
+
+.hero p:not(.eyebrow) {
+  max-width: 560px;
+  color: var(--muted);
+  font-size: clamp(1.1rem, 2vw, 1.35rem);
+  line-height: 1.55;
+}
+
+.button {
+  display: inline-flex;
+  min-height: 46px;
+  align-items: center;
+  justify-content: center;
+  margin-top: 1rem;
+  border-radius: 7px;
+  padding: 0.82rem 1rem;
+  background: var(--sun);
+  color: #22170a;
+  font-weight: 800;
+  text-decoration: none;
+}
+
+.section {
+  width: min(1080px, calc(100% - 2rem));
+  margin: 0 auto;
+  padding: clamp(3rem, 8vw, 6rem) 0;
+}
+
+.paths {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 1px;
+  padding-top: clamp(2rem, 6vw, 4rem);
+}
+
+.path {
+  min-height: 270px;
+  padding: 1rem;
+  border: 1px solid var(--line);
+  background: rgba(255, 255, 255, 0.48);
+  text-decoration: none;
+}
+
+.path span {
+  color: var(--tide);
+  font-size: 0.78rem;
+}
+
+.path h2 {
+  margin-top: 1.8rem;
+  font-size: clamp(1.6rem, 3vw, 2.5rem);
+}
+
+.path p,
+.prose p,
+.feature-row p,
+.about p {
+  color: var(--muted);
+  line-height: 1.7;
+}
+
+.split,
+.about {
+  display: grid;
+  grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr);
+  gap: clamp(1.5rem, 5vw, 4rem);
+  align-items: start;
+}
+
+.split h2,
+.feature-row h2,
+.about h2 {
+  font-size: clamp(2rem, 5vw, 4rem);
+}
+
+.prose p:first-child {
+  margin-top: 0;
+}
+
+.feature-row {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1rem;
+}
+
+.feature-row article {
+  min-height: 290px;
+  padding: 1.25rem;
+  border-top: 5px solid var(--kelp);
+  background: #fff;
+}
+
+.feature-row article:nth-child(2) {
+  border-top-color: var(--tide);
+}
+
+.about {
+  border-top: 1px solid var(--line);
+}
+
+.about img {
+  width: 100%;
+  aspect-ratio: 4 / 5;
+  object-fit: cover;
+  border-radius: 8px;
+}
+
+@media (max-width: 860px) {
+  .site-header,
+  nav {
+    align-items: start;
+    flex-direction: column;
+  }
+
+  .paths,
+  .split,
+  .feature-row,
+  .about,
+  .hero__content {
+    grid-template-columns: 1fr;
+  }
+
+  .path {
+    min-height: auto;
+  }
+}
+
+@media (max-width: 520px) {
+  h1 {
+    font-size: 3.4rem;
+  }
+}
