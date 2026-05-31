@@ -260,11 +260,26 @@ h1 {
 }
 
 .entry-card {
+  display: flex;
+  flex-direction: column;
   min-height: 280px;
   padding: 1.25rem;
   border: 1px solid var(--line);
   border-top: 5px solid var(--kelp);
   background: rgba(255, 255, 255, 0.58);
+}
+
+.entry-card--media {
+  background: #fff;
+}
+
+.entry-card img {
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  object-fit: cover;
+  margin-bottom: 1rem;
+  border-radius: 6px;
+  background: var(--line);
 }
 
 .entry-card:nth-child(even) {
@@ -283,12 +298,118 @@ h1 {
 }
 
 .entry-card h2 {
-  font-size: clamp(1.8rem, 4vw, 3.2rem);
+  font-size: clamp(1.55rem, 3vw, 2.6rem);
 }
 
 .entry-card p {
   color: var(--muted);
   line-height: 1.7;
+}
+
+.entry-card .text-link {
+  margin-top: auto;
+}
+
+.back-link {
+  display: inline-flex;
+  margin-bottom: clamp(2rem, 5vw, 4rem);
+  color: var(--tide);
+  font-weight: 800;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 0.28em;
+}
+
+.article {
+  width: min(860px, calc(100% - 2rem));
+  padding-top: clamp(3rem, 8vw, 6rem);
+}
+
+.article-header h1 {
+  max-width: 12ch;
+}
+
+.article-header p:not(.eyebrow) {
+  max-width: 680px;
+  color: var(--muted);
+  font-size: clamp(1.08rem, 2vw, 1.28rem);
+  line-height: 1.65;
+}
+
+.article-image {
+  margin: clamp(2rem, 5vw, 3.5rem) 0;
+}
+
+.article-image img {
+  width: 100%;
+  border-radius: 8px;
+}
+
+.article-body {
+  margin-top: clamp(2rem, 5vw, 3.5rem);
+  color: var(--ink);
+}
+
+.article-body h2,
+.article-body h3,
+.article-body h4,
+.article-body h5 {
+  margin: 2.2rem 0 0.8rem;
+  line-height: 1.1;
+}
+
+.article-body h2 {
+  font-size: clamp(1.8rem, 4vw, 3rem);
+}
+
+.article-body h3 {
+  font-size: clamp(1.45rem, 3vw, 2.2rem);
+}
+
+.article-body p,
+.article-body li,
+.article-body blockquote {
+  font-size: 1.03rem;
+  line-height: 1.78;
+}
+
+.article-body p,
+.article-body ul,
+.article-body ol,
+.article-body blockquote,
+.article-body pre {
+  margin: 1rem 0;
+}
+
+.article-body a {
+  color: var(--tide);
+  font-weight: 700;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 0.25em;
+}
+
+.article-body blockquote {
+  padding-left: 1rem;
+  border-left: 4px solid var(--sun);
+  color: var(--muted);
+}
+
+.article-body pre {
+  overflow-x: auto;
+  padding: 1rem;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: #fff;
+}
+
+.article-body code {
+  font-family: "IBM Plex Mono", monospace;
+  font-size: 0.92em;
+}
+
+.article-body hr {
+  border: 0;
+  border-top: 1px solid var(--line);
+  margin: 2rem 0;
 }
 
 @media (max-width: 860px) {

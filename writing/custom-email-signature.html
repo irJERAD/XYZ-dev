@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>How to Create a Custom Email Signature for Mail | Jerad XYZ</title>
+    <meta name="description" content="Notes on building a custom HTML email signature for Mail, with a focus on branded, clickable personal and professional identities." />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=Inter:wght@400;500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="../styles.css" />
+  </head>
+  <body>
+    <header class="site-header">
+      <a class="brand" href="../index.html">Jerad XYZ</a>
+      <nav aria-label="Primary navigation">
+        <a href="../writing.html" aria-current="page">Writing</a>
+        <a href="../projects.html">Projects</a>
+        <a href="../index.html#about">About</a>
+      </nav>
+    </header>
+
+    <main>
+      <article class="section article">
+        <a class="back-link" href="../writing.html">Back to writing</a>
+        <header class="article-header">
+          <p class="eyebrow">2016-06-27 · tutorial · email · profession</p>
+          <h1>How to Create a Custom Email Signature for Mail</h1>
+          <p>Notes on building a custom HTML email signature for Mail, with a focus on branded, clickable personal and professional identities.</p>
+        </header>
+        
+        <div class="article-body">
+<p>Personal email signatures are a great way to add a personal touch. Many know of and how to already do this in their email client of choice. Mail in OS X has some great options for customizing your personal signature and even allows for the creation of multiple and the formatting of the text and content. In an effort to add some creative and technical merit to my signature I have created a custom HTML signature. Links, formatted text and even pictures are already supported in the OS X native Mail client. What an HTML signature provides me is access to a wider range of format customization through inline CSS.</p>
+<p>I would like two email signatures, one for my office email with my day job and one for my personal email such as that connected to <a href="www.Jerad.xyz">this site</a>. I would like each email to have a branded experience so that someone reading an email from my office account will feel like they are reading something composed by my office and someone reading an email from my personal account feels connected to the content herein where I write about my endeavors into such things. I also want my signature to be clickable, sending the reader to a relevant location or opening up an email template readily addressed to myself.</p>
+<p>What I want in an email signature:</p>
+<ul>
+<li>Two emails</li>
+<li>Professional</li>
+<li>Personal</li>
+<li>Branded experience</li>
+<li>Hot spaces for active clicking</li>
+<li>Email link</li>
+<li>Link to website</li>
+</ul>
+<pre><code>&lt;style type="text/css"&gt;
+	a.link{margin:0;padding:0;border:none;text-decoration:none;}
+&lt;/style&gt;
+
+&lt;br /&gt;
+&lt;meta http-equiv="Content-Type" content="text/html; charset=UTF-8"&gt;
+&lt;meta name="format-detection" content="telephone=no"&gt;
+
+&lt;table width='320' id="sig" cellspacing='0' cellpadding='0' border-spacing='0' style="width:320px;margin:0;padding:0;"&gt;
+	&lt;tr&gt;
+		&lt;td width="86" style="width:86px;margin:0;padding:0;"&gt;
+			&lt;a href='[Desired-link-destination]' style="border:none;text-decoration:none;"&gt;
+        &lt;img moz-do-not-send="true" src="[Address-of-Image]" alt="GiantUser" style="border:none;width:86px;"&gt;
+      &lt;/a&gt;
+		&lt;/td&gt;
+
+  	&lt;td width="10" style="width:10px;min-width:10px;max-width:10px;margin:0;padding:0;"&gt;&amp;nbsp;&lt;/td&gt;
+    &lt;!-- &lt;td width="10" style="width:10px;min-width:10px;max-width:10px;margin:0;padding:0;border-left:1px solid #e0e0e0"&gt;&amp;nbsp;&lt;/td&gt; --&gt;
+
+		&lt;td valign='top' style="margin:0;padding:0;"&gt;
+			&lt;table id="sig2" cellspacing='0' cellpadding='0' border-spacing='0' style="padding:0;margin:0;font-family:'Lucida Grande',sans-serif;font-size:12px;color:#b0b0b0;border-collapse:collapse;-webkit-text-size-adjust:none;"&gt;
+				&lt;tr style="margin:0;padding:0;"&gt;
+					&lt;td style="margin:0;padding:0;font-family:'Lucida Grande',sans-serif;white-space:nowrap;"&gt;
+						&lt;strong&gt;&lt;a href="mailto:[Your-Email-Address]" style="border:none;text-decoration:none;color:#049cdb;"&gt;&lt;span style="color:#049cdb"&gt;Your Name&lt;/span&gt;&lt;/a&gt;&lt;/strong&gt;&lt;span style="color:e0e0e0;"&gt;,&lt;/span&gt;
+						&lt;span style="color:#b0b0b0;"&gt;Job Title or Position&lt;/span&gt;
+					&lt;/td&gt;
+				&lt;/tr&gt;
+				&lt;tr style="margin:0;padding:0;color:#b0a49b;"&gt;
+					&lt;td style="margin:0;padding:0;font-family:'Lucida Grande',sans-serif;white-space:nowrap;"&gt;
+						&lt;a href="[Office-or-Personal-Website]" style="border:none;text-decoration:none;color:#b0b0b0;"&gt;&lt;span style="color:#b0b0b0"&gt;[Office-or-Personal-Website-Name]&lt;span style="color:#e0e0e0"&gt;.&lt;/span&gt;com&lt;/span&gt;&lt;/a&gt;&lt;span style="color:e0e0e0;"&gt;,&lt;/span&gt;
+						&lt;a href="http://g.co/maps/wnbde [Google-Map-To-Open-Showing Office-Location]" style="border:none;text-decoration:none;color:#b0b0b0;"&gt;&lt;span style="color:#b0b0b0"&gt;New York[Text-Location-Of-Office-That-Opens-Google-Map-Link]&lt;/span&gt;&lt;/a&gt;
+					&lt;/td&gt;
+				&lt;/tr&gt;
+
+				&lt;tr style="margin:0;padding:0;color:#b0a49b;"&gt;
+					&lt;td style="margin:0;padding:0;font-family:'Lucida Grande',sans-serif;white-space:nowrap;"&gt;
+						&lt;a href="tel:[Phone Number]" style="margin:0;padding:0;border:none;text-decoration:none;color:#b0b0b0;"&gt;&lt;span style="color:#b0b0b0"&gt;347&lt;/span&gt;&lt;span style="color:#e0e0e0"&gt;.&lt;/span&gt;&lt;span style="color:#b0b0b0"&gt;688&lt;/span&gt;&lt;span style="color:#e0e0e0"&gt;.&lt;/span&gt;&lt;span style="color:#b0b0b0"&gt;7226&lt;/span&gt;&lt;/a&gt;
+						&lt;span style="color:e0e0e0;"&gt;&amp;bull;&lt;/span&gt;
+						&lt;a href="http://twitter.com/[Twitter-Handle]" style="margin:0;padding:0;border:none;text-decoration:none;color:#b0b0b0;"&gt;&lt;span style="color:#b0b0b0"&gt;Twitter&lt;/span&gt;&lt;/a&gt;
+					&lt;/td&gt;
+				&lt;/tr&gt;
+			&lt;/table&gt;
+		&lt;/td&gt;
+	&lt;tr&gt;
+&lt;/table&gt;
+&lt;br /&gt;
+&amp;nbsp;</code></pre>
+<h4>Current Draft</h4>
+<p>Here is what my current draft of a custom HTML email signature for the OS X Mail client:</p>
+<p>&lt;style type="text/css"&gt; a.link{margin:0;padding:0;border:none;text-decoration:none;} &lt;/style&gt;</p>
+<p>&lt;br /&gt; &lt;meta http-equiv="Content-Type" content="text/html; charset=UTF-8"&gt; &lt;meta name="format-detection" content="telephone=no"&gt;</p>
+<p>&lt;table width='320' id="sig" cellspacing='0' cellpadding='0' border-spacing='0' style="width:320px;margin:0;padding:0;"&gt; &lt;tr&gt; &lt;td width="86" style="width:86px;margin:0;padding:0;"&gt; &lt;a href='http://Jerad.xyz' style="border:none;text-decoration:none;"&gt; &lt;img moz-do-not-send="true" src="/images/JA.png" alt="MySite" style="border:none;width:86px;"&gt; &lt;/a&gt; &lt;/td&gt;</p>
+<p>&lt;td width="10" style="width:10px;min-width:10px;max-width:10px;margin:0;padding:0;"&gt;&amp;nbsp;&lt;/td&gt; &lt;!-- &lt;td width="10" style="width:10px;min-width:10px;max-width:10px;margin:0;padding:0;border-left:1px solid #e0e0e0"&gt;&amp;nbsp;&lt;/td&gt; --&gt;</p>
+<p>&lt;td valign='top' style="margin:0;padding:0;"&gt; &lt;table id="sig2" cellspacing='0' cellpadding='0' border-spacing='0' style="padding:0;margin:0;font-family:'Lucida Grande',sans-serif;font-size:12px;color:#b0b0b0;border-collapse:collapse;-webkit-text-size-adjust:none;"&gt; &lt;tr style="margin:0;padding:0;"&gt; &lt;td style="margin:0;padding:0;font-family:'Lucida Grande',sans-serif;white-space:nowrap;"&gt; &lt;strong&gt;&lt;a href="mailto:ir@Jerad.xyz" style="border:none;text-decoration:none;color:#049cdb;"&gt;&lt;span style="color:#049cdb"&gt;Jerad Acosta&lt;/span&gt;&lt;/a&gt;&lt;/strong&gt;&lt;span style="color:e0e0e0;"&gt;,&lt;/span&gt; &lt;span style="color:#b0b0b0;"&gt;Reckoner&lt;/span&gt; &lt;/td&gt; &lt;/tr&gt; &lt;tr style="margin:0;padding:0;color:#b0a49b;"&gt; &lt;td style="margin:0;padding:0;font-family:'Lucida Grande',sans-serif;white-space:nowrap;"&gt; &lt;a href="http://Jerad.xyz" style="border:none;text-decoration:none;color:#b0b0b0;"&gt;&lt;span style="color:#b0b0b0"&gt;Jerad&lt;span style="color:#e0e0e0"&gt;.&lt;/span&gt;XYZ&lt;/span&gt;&lt;/a&gt;&lt;span style="color:e0e0e0;"&gt;,&lt;/span&gt; &lt;a href="https://goo.gl/maps/H3iGyTgo8vJ2" style="border:none;text-decoration:none;color:#b0b0b0;"&gt;&lt;span style="color:#b0b0b0"&gt;San Francisco&lt;/span&gt;&lt;/a&gt; &lt;/td&gt; &lt;/tr&gt;</p>
+<p>&lt;tr style="margin:0;padding:0;color:#b0a49b;"&gt; &lt;td style="margin:0;padding:0;font-family:'Lucida Grande',sans-serif;white-space:nowrap;"&gt; &lt;a href="tel:+1-760-840-0524" style="margin:0;padding:0;border:none;text-decoration:none;color:#b0b0b0;"&gt;&lt;span style="color:#b0b0b0"&gt;760&lt;/span&gt;&lt;span style="color:#e0e0e0"&gt;.&lt;/span&gt;&lt;span style="color:#b0b0b0"&gt;840&lt;/span&gt;&lt;span style="color:#e0e0e0"&gt;.&lt;/span&gt;&lt;span style="color:#b0b0b0"&gt;0524&lt;/span&gt;&lt;/a&gt; &lt;span style="color:e0e0e0;"&gt;&amp;bull;&lt;/span&gt; &lt;a href="http://twitter.com/irJERAD" style="margin:0;padding:0;border:none;text-decoration:none;color:#b0b0b0;"&gt;&lt;span style="color:#b0b0b0"&gt;Twitter&lt;/span&gt;&lt;/a&gt; &lt;/td&gt; &lt;/tr&gt; &lt;/table&gt; &lt;/td&gt; &lt;tr&gt; &lt;/table&gt; &lt;br /&gt; &amp;nbsp;</p>
+        </div>
+      </article>
+    </main>
+  </body>
+</html>

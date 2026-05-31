@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Jupyter Notebook Basics | Jerad XYZ</title>
+    <meta name="description" content="A practical reminder sheet for working in Jupyter notebooks, including cells, Markdown, documentation, and learning resources." />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=Inter:wght@400;500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="../styles.css" />
+  </head>
+  <body>
+    <header class="site-header">
+      <a class="brand" href="../index.html">Jerad XYZ</a>
+      <nav aria-label="Primary navigation">
+        <a href="../writing.html" aria-current="page">Writing</a>
+        <a href="../projects.html">Projects</a>
+        <a href="../index.html#about">About</a>
+      </nav>
+    </header>
+
+    <main>
+      <article class="section article">
+        <a class="back-link" href="../writing.html">Back to writing</a>
+        <header class="article-header">
+          <p class="eyebrow">2016-11-09 · learn · python · iPython · jupyter</p>
+          <h1>Jupyter Notebook Basics</h1>
+          <p>A practical reminder sheet for working in Jupyter notebooks, including cells, Markdown, documentation, and learning resources.</p>
+        </header>
+        
+        <div class="article-body">
+<p>Some notes to keep handy as a reminder of the basics in using a Jupyter notebook</p>
+<h2>What is a Jupyter notebook?</h2>
+<p>According to the <a href="//jupyter.org">Web App's main page</a>: _The Jupyter Notebook is an open-source web application that allows you to create and share documents that contain live code, equations, visualizations and explanatory text. Uses include: data cleaning and transformation, numerical simulation, statistical modeling, machine learning and much more._</p>
+<p><strong>In my own words:</strong> _Application for creating and sharing documents that contain:_</p>
+<ul>
+<li>live code</li>
+<li>equations</li>
+<li>visualizations</li>
+<li>explanatory text</li>
+</ul>
+<p>Home page: http://jupyter.org/</p>
+<h2>Notebook tutorials</h2>
+<p>_Handy write ups on specific skills or applications of Jupyter Notebooks_</p>
+<ul>
+<li><a href="https://jupyter-notebook-beginner-guide.readthedocs.io/en/latest/">Quick Start Guide</a></li>
+<li>Brief tutorial on installing and running notebooks on a local computer with no python familiarity assumed</li>
+<li><a href="http://jupyter-notebook.readthedocs.io/en/latest/">User Documentation</a></li>
+<li>User documentation on setup and configuration</li>
+<li><a href="http://jupyter-notebook.readthedocs.io/en/latest/examples/Notebook/examples_index.html">Examples Documentation</a></li>
+<li>Jupyter docs with Notebook examples for definitions</li>
+<li><a href="http://bebi103.caltech.edu/2015/tutorials/t0b_intro_to_jupyter_notebooks.html">Cal Tech</a></li>
+<li>Content intro from Markdown and Latex to <a href="http://bebi103.caltech.edu.s3-website-us-east-1.amazonaws.com/2015/tutorials/t0b_intro_to_jupyter_notebooks.html#Interactive-plotting-with-Bokeh">interactive plotting with bokeh</a></li>
+</ul>
+<h2>Notebook Users</h2>
+<ul>
+<li>students, readers, viewers, learners</li>
+<li>read a digital book</li>
+<li>interact with a "live" book</li>
+<li>notebook developers</li>
+<li>create notebooks for students, readers, ...</li>
+</ul>
+<h2>Notebooks cells</h2>
+<p>_Notebooks are composed of cells. These can be modified for myriad forms of content_</p>
+<ul>
+<li>Code cells</li>
+<li>execute interactively on computer (Python, or many other languages)</li>
+<li>memory across notebook (variable from one cell can be used in a later)</li>
+<li>Markdown cells</li>
+<li>documentation / "narrative" cells</li>
+<li>Can be used to decorate and guide a reader through a notebook</li>
+</ul>
+<p>All cells have the following basic structure:</p>
+<pre><code>{
+  "cell_type" : "name",
+  "metadata" : {},
+  "source" : "single string or [list, of, strings]",
+}</code></pre>
+<h3>Markdown cells</h3>
+<p><em>markdown, as defined in <a href="https://help.github.com/articles/github-flavored-markdown">GitHub-flavored markdown</a>, and implemented in <a href="https://github.com/chjj/marked">marked</a></em></p>
+<pre><code>{
+  "cell_type" : "markdown",
+  "metadata" : {},
+  "source" : ["some *markdown*"],
+}</code></pre>
+<h3>Code cells</h3>
+<p><em>contain source code in the language of the document’s associated kernel, and a list of outputs associated with executing that code. They also have an execution_count, which must be an integer or null</em></p>
+<pre><code>{
+  "cell_type" : "code",
+  "execution_count": 1, # integer or null
+  "metadata" : {
+      "collapsed" : True, # whether the output of the cell is collapsed
+      "autoscroll": False, # any of true, false or "auto"
+  },
+  "source" : ["some code"],
+  "outputs": [{
+      # list of output dicts (described below)
+      "output_type": "stream",
+      ...
+  }],
+}</code></pre>
+<h4>Code cell outputs</h4>
+<p><em>code cell outputs correspond to messages produced as a result of executing the cell</em></p>
+<h5>stream output</h5>
+<pre><code>{
+  "output_type" : "stream",
+  "name" : "stdout", # or stderr
+  "text" : ["multiline stream text"],
+}</code></pre>
+<p>_the keys <code>stream</code> key was changed to <code>name</code> to match the stream message in nbformat: 4.0_</p>
+<h5>display_data</h5>
+<p><em>Rich display outputs, as created by display_data messages, contain data keyed by mime-type</em></p>
+<pre><code>{
+  "output_type" : "display_data",
+  "data" : {
+    "text/plain" : ["multiline text data"],
+    "image/png": ["base64-encoded-png-data"],
+    "application/json": {
+      # JSON data is included as-is
+      "json": "data",
+    },
+  },
+  "metadata" : {
+    "image/png": {
+      "width": 640,
+      "height": 480,
+    },
+  },
+}</code></pre>
+<h2>Following cells are "live" cells</h2>
+<pre><code>print ("Hello Jupyter World!; You are helping me learn")</code></pre>
+<p>Hello Jupyter World!; You are helping me learn</p>
+<pre><code>(5+7)/4</code></pre>
+<p>3</p>
+<pre><code>import numpy as np
+my_first_array = np.arange(11)
+print (my_first_array)</code></pre>
+<p>[ 0  1  2  3  4  5  6  7  8  9 10]</p>
+        </div>
+      </article>
+    </main>
+  </body>
+</html>
