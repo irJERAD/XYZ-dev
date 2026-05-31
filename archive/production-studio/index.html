@@ -1,0 +1,801 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Jerad Acosta | Studio and Field Notes</title>
+    <meta
+      name="description"
+      content="Jerad Acosta's personal studio for poems, apps, illustrations, blog posts, photos, tutoring, surfing, education, and projects in progress."
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600;700&family=Inter:wght@400;500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <header class="site-header">
+      <a class="brand" href="#top" aria-label="Jerad Acosta home">
+        <span>Jerad</span>
+        <span>XYZ</span>
+      </a>
+      <nav class="site-nav" aria-label="Primary navigation">
+        <a href="#studio">Studio</a>
+        <a href="#poems">Poems</a>
+        <a href="#writing">Writing</a>
+        <a href="#visuals">Visuals</a>
+        <a href="#about">About</a>
+        <a href="#background">Background</a>
+      </nav>
+    </header>
+
+    <main id="top">
+      <section class="hero" aria-labelledby="hero-title">
+        <div class="hero__image" aria-hidden="true"></div>
+        <div class="hero__content">
+          <p class="eyebrow">Build fast. Feel deeply. Explore widely.</p>
+          <h1 id="hero-title">A studio that becomes the site.</h1>
+          <p>
+            I use this place to write poems, collect images, draft posts, save
+            field notes, and keep the through-line visible: apps, tutoring,
+            surfing, songs, stories, and the courage to start.
+          </p>
+          <div class="hero__actions">
+            <a class="button button--primary" href="#studio">Open the studio</a>
+            <a class="button button--secondary" href="#poems">Read the work</a>
+          </div>
+        </div>
+      </section>
+
+      <section class="section intro" id="about" aria-label="About Jerad">
+        <div>
+          <p class="section-kicker">About</p>
+          <h2>Curiosity with saltwater on it.</h2>
+        </div>
+        <div class="prose">
+          <p>
+            I manage a tutoring program, build small apps for learning and
+            practice, surf when I can, and keep creative work close enough to
+            touch. A useful tool, a poem, a song, and a surf session all ask a
+            similar question: what is happening here, and what would help?
+          </p>
+          <p>
+            This site is both a public archive and a private workshop. Drafts
+            begin in the studio. When they are marked published, they appear in
+            the public sections below.
+          </p>
+        </div>
+      </section>
+
+      <section class="section studio" id="studio" aria-labelledby="studio-title">
+        <div class="section__header">
+          <div>
+            <p class="section-kicker">Project Studio</p>
+            <h2 id="studio-title">Add the thing while it is still warm.</h2>
+          </div>
+          <p>
+            Save poems, posts, illustrations, and photos. Use a web image URL,
+            upload a local image, or import a text file for longer writing.
+          </p>
+        </div>
+
+        <div class="studio-shell">
+          <div class="studio-tabs card-tab-grid" role="tablist" aria-label="Content type">
+            <button class="studio-tab is-active" type="button" data-panel="poemPanel" data-kind-card="poem">
+              <span class="card__kicker">Poetry</span>
+              <strong>Write the line</strong>
+              <small>Draft, polish, publish, export.</small>
+              <em id="poemCount">0</em>
+            </button>
+            <button class="studio-tab" type="button" data-panel="postPanel" data-kind-card="post">
+              <span class="card__kicker">Posts</span>
+              <strong>Shape the idea</strong>
+              <small>Notes, guides, field reports.</small>
+              <em id="postCount">0</em>
+            </button>
+            <button class="studio-tab" type="button" data-panel="illustrationPanel" data-kind-card="illustration">
+              <span class="card__kicker">Illustrations</span>
+              <strong>Collect the image</strong>
+              <small>Book art, sketches, references.</small>
+              <em id="illustrationCount">0</em>
+            </button>
+            <button class="studio-tab" type="button" data-panel="photoPanel" data-kind-card="photo">
+              <span class="card__kicker">Photos</span>
+              <strong>Keep the context</strong>
+              <small>Where, when, who, and why.</small>
+              <em id="photoCount">0</em>
+            </button>
+          </div>
+
+          <form class="creator-panel is-active" id="poemPanel" data-kind="poem">
+            <div class="field-grid two-up">
+              <label class="field">Title<input name="title" type="text" placeholder="Low tide notebook" /></label>
+              <label class="field">State
+                <select name="status">
+                  <option value="draft">Draft</option>
+                  <option value="published">Published</option>
+                  <option value="polishing">Polishing</option>
+                </select>
+              </label>
+            </div>
+            <label class="field">Poem<textarea name="body" rows="11" placeholder="Start with the image that will not leave you alone."></textarea></label>
+            <div class="field-grid two-up">
+              <label class="field">Weather<input name="mood" type="text" placeholder="foggy, clean, restless" /></label>
+              <label class="field">Tags<input name="tags" type="text" placeholder="surf, family, learning" /></label>
+            </div>
+            <div class="form-actions">
+              <button class="button button--primary" type="submit">Save poem</button>
+              <button class="button button--quiet" type="button" data-prompt="poem">Prompt</button>
+              <button class="button button--quiet" type="reset">Clear</button>
+            </div>
+          </form>
+
+          <form class="creator-panel" id="postPanel" data-kind="post">
+            <div class="field-grid two-up">
+              <label class="field">Title<input name="title" type="text" placeholder="What surfing teaches about practice" /></label>
+              <label class="field">State
+                <select name="status">
+                  <option value="draft">Draft</option>
+                  <option value="published">Published</option>
+                  <option value="polishing">Polishing</option>
+                </select>
+              </label>
+            </div>
+            <label class="field">Blog Post<textarea name="body" rows="11" placeholder="Draft a reflection, tutorial, field note, or update."></textarea></label>
+            <div class="field-grid two-up">
+              <label class="field">Import .md or .txt<input name="textFile" type="file" accept=".md,.markdown,.txt" /></label>
+              <label class="field">Tags<input name="tags" type="text" placeholder="education, apps, surfing" /></label>
+            </div>
+            <div class="form-actions">
+              <button class="button button--primary" type="submit">Save post</button>
+              <button class="button button--quiet" type="button" data-prompt="post">Prompt</button>
+              <button class="button button--quiet" type="reset">Clear</button>
+            </div>
+          </form>
+
+          <form class="creator-panel" id="illustrationPanel" data-kind="illustration">
+            <div class="field-grid two-up">
+              <label class="field">Title<input name="title" type="text" placeholder="The map was wrong on purpose" /></label>
+              <label class="field">State
+                <select name="status">
+                  <option value="draft">Draft</option>
+                  <option value="published">Published</option>
+                  <option value="polishing">Polishing</option>
+                </select>
+              </label>
+            </div>
+            <div class="field-grid two-up">
+              <label class="field">Image URL<input name="imageUrl" type="url" placeholder="https://..." /></label>
+              <label class="field">Upload image<input name="imageFile" type="file" accept="image/*" /></label>
+            </div>
+            <label class="field">Caption<textarea name="body" rows="6" placeholder="What is happening in this illustration?"></textarea></label>
+            <div class="field-grid two-up">
+              <label class="field">Source or credit<input name="source" type="text" placeholder="Sketchbook, Midjourney, Unsplash, etc." /></label>
+              <label class="field">Tags<input name="tags" type="text" placeholder="book, character, map" /></label>
+            </div>
+            <div class="form-actions">
+              <button class="button button--primary" type="submit">Save illustration</button>
+              <button class="button button--quiet" type="reset">Clear</button>
+            </div>
+          </form>
+
+          <form class="creator-panel" id="photoPanel" data-kind="photo">
+            <div class="field-grid two-up">
+              <label class="field">Title<input name="title" type="text" placeholder="Evening glass-off" /></label>
+              <label class="field">State
+                <select name="status">
+                  <option value="draft">Draft</option>
+                  <option value="published">Published</option>
+                  <option value="polishing">Polishing</option>
+                </select>
+              </label>
+            </div>
+            <div class="field-grid two-up">
+              <label class="field">Photo URL<input name="imageUrl" type="url" placeholder="https://..." /></label>
+              <label class="field">Upload photo<input name="imageFile" type="file" accept="image/*" /></label>
+            </div>
+            <label class="field">Caption<textarea name="body" rows="5" placeholder="What was happening?"></textarea></label>
+            <div class="field-grid three-up">
+              <label class="field">Where<input name="place" type="text" placeholder="Pacifica, CA" /></label>
+              <label class="field">When<input name="eventDate" type="date" /></label>
+              <label class="field">Who<input name="people" type="text" placeholder="Me, students, friends" /></label>
+            </div>
+            <div class="form-actions">
+              <button class="button button--primary" type="submit">Save photo</button>
+              <button class="button button--quiet" type="reset">Clear</button>
+            </div>
+          </form>
+
+          <aside class="studio-side">
+            <div class="prompt-box">
+              <p class="prompt-card__label">Nudge</p>
+              <p id="studioPrompt">Write four lines about something you are avoiding.</p>
+            </div>
+            <div class="admin-card">
+              <p class="prompt-card__label">Admin Key</p>
+              <label class="field">Private studio access
+                <input id="adminKeyInput" type="password" autocomplete="current-password" placeholder="Enter your studio key" />
+              </label>
+              <div class="admin-actions">
+                <button class="button button--primary" id="saveAdminKeyButton" type="button">Unlock studio</button>
+                <button class="button button--quiet" id="forgetAdminKeyButton" type="button">Lock</button>
+              </div>
+              <p class="status-line" id="adminStatus">Visitors can read published work only.</p>
+            </div>
+            <div class="studio-note">
+              <p class="prompt-card__label">Publish Flow</p>
+              <p>
+                Published work appears below for visitors. Drafting, publishing,
+                deleting, and clearing require your private admin key.
+              </p>
+              <p class="status-line" id="syncStatus">Loading saved work...</p>
+            </div>
+          </aside>
+        </div>
+
+        <div class="library-head">
+          <div>
+            <p class="section-kicker">Library</p>
+            <h3>Saved work</h3>
+          </div>
+          <div class="library-actions">
+            <button class="button button--quiet" id="exportJsonButton" type="button">Export data</button>
+            <button class="button button--danger" id="clearLibraryButton" type="button">Clear all</button>
+          </div>
+        </div>
+        <div class="library-grid" id="libraryGrid"></div>
+      </section>
+
+      <section class="section public-section" id="poems" aria-labelledby="poems-title">
+        <div class="section__header">
+          <div>
+            <p class="section-kicker">Poems</p>
+            <h2 id="poems-title">Small lines, saved before they disappear.</h2>
+          </div>
+          <p>Published poems from the studio collect here.</p>
+        </div>
+        <div class="poem-public-grid" id="publicPoems"></div>
+      </section>
+
+      <section class="section public-section" id="writing" aria-labelledby="writing-title">
+        <div class="section__header">
+          <div>
+            <p class="section-kicker">Writing</p>
+            <h2 id="writing-title">Notes on building, tutoring, surfing, and practice.</h2>
+          </div>
+          <p>Posts can start as rough reflections and become public when useful.</p>
+        </div>
+        <div class="post-list" id="publicPosts"></div>
+      </section>
+
+      <section class="section public-section" id="visuals" aria-labelledby="visuals-title">
+        <div class="section__header">
+          <div>
+            <p class="section-kicker">Visuals</p>
+            <h2 id="visuals-title">Photos and illustrations with their context intact.</h2>
+          </div>
+          <p>Places, people, sketches, and story material from the studio.</p>
+        </div>
+        <div class="visual-grid" id="publicVisuals"></div>
+      </section>
+
+      <section class="section background" id="background" aria-labelledby="background-title">
+        <div class="section__header">
+          <div>
+            <p class="section-kicker">Background</p>
+            <h2 id="background-title">Education, experience, and interests.</h2>
+          </div>
+          <p>A public snapshot of the person behind the projects.</p>
+        </div>
+        <div class="background-grid">
+          <article class="info-card">
+            <p class="card__kicker">Education</p>
+            <h3>UC San Diego</h3>
+            <p>B.S. Cognitive Science. Minor in Applied Mathematics.</p>
+            <p>Continued learning across data analytics, iOS development, and practical AI.</p>
+          </article>
+          <article class="info-card">
+            <p class="card__kicker">Experience</p>
+            <h3>Tutoring program manager</h3>
+            <p>
+              I support middle and high school students, mentor tutors, and build
+              tools that make academic ownership easier to practice.
+            </p>
+          </article>
+          <article class="info-card">
+            <p class="card__kicker">Interests</p>
+            <h3>Surf, apps, poems, songs, stories</h3>
+            <p>
+              I like projects that connect discipline with play: breath-hold
+              training, student apps, illustrated books, recordings, and field notes.
+            </p>
+          </article>
+        </div>
+      </section>
+
+      <section class="section contact" aria-labelledby="contact-title">
+        <div>
+          <p class="section-kicker">Contact</p>
+          <h2 id="contact-title">For apps, tutoring ideas, writing, music, or a good first draft.</h2>
+        </div>
+        <div class="contact__actions">
+          <a class="button button--primary" href="mailto:hello@jerad.xyz">hello@jerad.xyz</a>
+          <a class="button button--secondary" href="https://github.com/irjerad" target="_blank" rel="noreferrer">GitHub</a>
+        </div>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <span>Jerad Acosta</span>
+      <span>Begin before it feels ready.</span>
+    </footer>
+
+    <script>
+      const storageKey = "jeradxyz.library.cache";
+      const adminKeyStorageKey = "jeradxyz.adminKey";
+      const apiPath = "/api/library";
+      const prompts = {
+        poem: [
+          "Write four lines about something you are avoiding.",
+          "Start with a sound from the room you are in.",
+          "Make the ocean speak in a sentence under ten words.",
+          "Describe a student realizing they are capable."
+        ],
+        post: [
+          "Write the guide your younger self needed this week.",
+          "Explain one app idea as if you were teaching it to a student.",
+          "Write about what surfing taught you about practice.",
+          "Turn one small tutoring moment into a useful reflection."
+        ]
+      };
+
+      const starterItems = [
+        {
+          id: "seed-poem",
+          kind: "poem",
+          title: "First Paddle",
+          body: "I start before I am ready\nand the water answers anyway.",
+          status: "published",
+          mood: "clean",
+          tags: ["surf", "beginning"],
+          created: "2026-04-30",
+          updated: "2026-04-30T12:00:00.000Z"
+        },
+        {
+          id: "seed-post",
+          kind: "post",
+          title: "A place for starting things",
+          body: "This site is a workshop first and a portfolio second. The point is to make it easy to begin, save the rough version, and let the public archive grow from real practice.",
+          status: "published",
+          tags: ["site", "process"],
+          created: "2026-04-30",
+          updated: "2026-04-30T12:00:00.000Z"
+        },
+        {
+          id: "seed-photo",
+          kind: "photo",
+          title: "Coastline study",
+          body: "A reminder to keep looking at the edge where motion meets patience.",
+          status: "published",
+          imageUrl: "https://images.unsplash.com/photo-1502680390469-be75c86b636f?auto=format&fit=crop&w=1200&q=82",
+          place: "California coast",
+          eventDate: "2026-04-30",
+          people: "Jerad",
+          tags: ["surf", "coast"],
+          created: "2026-04-30",
+          updated: "2026-04-30T12:00:00.000Z"
+        }
+      ];
+
+      const elements = {
+        tabs: document.querySelectorAll(".studio-tab"),
+        panels: document.querySelectorAll(".creator-panel"),
+        prompt: document.querySelector("#studioPrompt"),
+        library: document.querySelector("#libraryGrid"),
+        publicPoems: document.querySelector("#publicPoems"),
+        publicPosts: document.querySelector("#publicPosts"),
+        publicVisuals: document.querySelector("#publicVisuals"),
+        exportJson: document.querySelector("#exportJsonButton"),
+        clearLibrary: document.querySelector("#clearLibraryButton"),
+        adminKey: document.querySelector("#adminKeyInput"),
+        saveAdminKey: document.querySelector("#saveAdminKeyButton"),
+        forgetAdminKey: document.querySelector("#forgetAdminKeyButton"),
+        adminStatus: document.querySelector("#adminStatus"),
+        syncStatus: document.querySelector("#syncStatus"),
+        writeButtons: document.querySelectorAll('.creator-panel button[type="submit"], button[data-action="publish"], #clearLibraryButton')
+      };
+
+      let libraryItems = [];
+      let adminKey = localStorage.getItem(adminKeyStorageKey) || "";
+      let isAdmin = false;
+      const hasServerApi = location.protocol !== "file:";
+
+      const escapeHtml = (value = "") =>
+        String(value).replace(/[&<>"]/g, (character) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[character]));
+
+      const slugify = (value = "untitled") =>
+        value.toLowerCase().trim().replace(/['"]/g, "").replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "") || "untitled";
+
+      const today = () => new Date().toISOString().slice(0, 10);
+      const parseTags = (value = "") => value.split(",").map((tag) => tag.trim()).filter(Boolean);
+      const cacheItems = (items) => localStorage.setItem(storageKey, JSON.stringify(items));
+      const cachedItems = () => JSON.parse(localStorage.getItem(storageKey) || "null") || starterItems;
+      const readFileAsDataUrl = (file) => new Promise((resolve, reject) => {
+        if (!file) return resolve("");
+        const reader = new FileReader();
+        reader.onload = () => resolve(reader.result);
+        reader.onerror = reject;
+        reader.readAsDataURL(file);
+      });
+      const readFileAsText = (file) => new Promise((resolve, reject) => {
+        if (!file) return resolve("");
+        const reader = new FileReader();
+        reader.onload = () => resolve(reader.result);
+        reader.onerror = reject;
+        reader.readAsText(file);
+      });
+
+      const setStatus = (message, tone = "") => {
+        elements.syncStatus.textContent = message;
+        elements.syncStatus.dataset.tone = tone;
+      };
+
+      const setAdminStatus = (message, tone = "") => {
+        elements.adminStatus.textContent = message;
+        elements.adminStatus.dataset.tone = tone;
+      };
+
+      const apiRequest = async (method = "GET", body) => {
+        const headers = { "Accept": "application/json" };
+        if (body) headers["Content-Type"] = "application/json";
+        if (adminKey) headers["x-admin-key"] = adminKey;
+
+        const response = await fetch(apiPath, {
+          method,
+          headers,
+          body: body ? JSON.stringify(body) : undefined
+        });
+
+        let payload = null;
+        try {
+          payload = await response.json();
+        } catch (error) {
+          payload = { error: response.statusText };
+        }
+
+        if (!response.ok) {
+          const message = payload?.error || `Request failed (${response.status})`;
+          throw new Error(message);
+        }
+
+        return payload;
+      };
+
+      const itemToMarkdown = (item) => {
+        const title = item.title || "Untitled";
+        const body = item.body || "";
+        const tags = item.tags?.length ? item.tags.join(", ") : item.kind;
+        return `---\ntitle: "${title.replace(/"/g, '\\"')}"\ndate: ${item.created || today()}\ncategories: [${item.kind}]\ntags: [${tags}]\nstatus: ${item.status}\n---\n\n${body}\n`;
+      };
+
+      const downloadText = (fileName, content, type = "text/plain") => {
+        const blob = new Blob([content], { type });
+        const link = document.createElement("a");
+        link.href = URL.createObjectURL(blob);
+        link.download = fileName;
+        link.click();
+        URL.revokeObjectURL(link.href);
+      };
+
+      const previewText = (value = "", length = 180) => {
+        const clean = value.trim();
+        return clean.length > length ? `${clean.slice(0, length)}...` : clean;
+      };
+
+      const emptyCard = (text) => `<article class="empty-card">${text}</article>`;
+
+      const updateCardCounts = (items) => {
+        document.querySelector("#poemCount").textContent = items.filter((item) => item.kind === "poem").length;
+        document.querySelector("#postCount").textContent = items.filter((item) => item.kind === "post").length;
+        document.querySelector("#illustrationCount").textContent = items.filter((item) => item.kind === "illustration").length;
+        document.querySelector("#photoCount").textContent = items.filter((item) => item.kind === "photo").length;
+      };
+
+      const updateAuthUi = () => {
+        elements.adminKey.value = adminKey;
+        elements.clearLibrary.disabled = !isAdmin;
+        document.querySelectorAll('.creator-panel button[type="submit"]').forEach((button) => {
+          button.disabled = !isAdmin;
+          button.title = isAdmin ? "" : "Enter the admin key to save.";
+        });
+        if (isAdmin) {
+          setAdminStatus("Studio unlocked. You can save, publish, and delete.", "good");
+        } else {
+          setAdminStatus("Visitors can read published work only.", "");
+        }
+      };
+
+      const renderLibrary = () => {
+        const items = [...libraryItems].sort((a, b) => (b.updated || "").localeCompare(a.updated || ""));
+        updateCardCounts(items);
+
+        if (!isAdmin) {
+          elements.library.innerHTML = emptyCard("Enter the admin key to manage drafts and saved work. Published items are visible below.");
+          return;
+        }
+
+        elements.library.innerHTML = items.length ? "" : emptyCard("No saved work yet.");
+        items.forEach((item) => {
+          const card = document.createElement("article");
+          card.className = "library-card";
+          const image = item.imageUrl ? `<img src="${escapeHtml(item.imageUrl)}" alt="${escapeHtml(item.title || item.kind)}" />` : "";
+          card.innerHTML = `
+            ${image}
+            <div>
+              <p class="card__kicker">${escapeHtml(item.kind)} / ${escapeHtml(item.status)}</p>
+              <h3>${escapeHtml(item.title || "Untitled")}</h3>
+              <p>${escapeHtml(previewText(item.body || item.place || item.source || "Saved in the studio."))}</p>
+            </div>
+            <div class="library-card__actions">
+              <button class="button button--quiet" type="button" data-action="publish" data-id="${item.id}">${item.status === "published" ? "Unpublish" : "Publish"}</button>
+              <button class="button button--quiet" type="button" data-action="export" data-id="${item.id}">Markdown</button>
+              <button class="button button--danger" type="button" data-action="delete" data-id="${item.id}">Delete</button>
+            </div>
+          `;
+          elements.library.appendChild(card);
+        });
+      };
+
+      const renderPublic = () => {
+        const published = libraryItems.filter((item) => item.status === "published");
+        const poems = published.filter((item) => item.kind === "poem");
+        const posts = published.filter((item) => item.kind === "post");
+        const visuals = published.filter((item) => ["photo", "illustration"].includes(item.kind));
+
+        elements.publicPoems.innerHTML = poems.length ? "" : emptyCard("Published poems will appear here.");
+        poems.forEach((poem) => {
+          const card = document.createElement("article");
+          card.className = "public-poem";
+          card.innerHTML = `
+            <p class="card__kicker">${escapeHtml(poem.mood || "poem")}</p>
+            <h3>${escapeHtml(poem.title || "Untitled poem")}</h3>
+            <p>${escapeHtml(poem.body).replace(/\n/g, "<br>")}</p>
+          `;
+          elements.publicPoems.appendChild(card);
+        });
+
+        elements.publicPosts.innerHTML = posts.length ? "" : emptyCard("Published posts will appear here.");
+        posts.forEach((post) => {
+          const article = document.createElement("article");
+          article.className = "public-post";
+          article.innerHTML = `
+            <p class="card__kicker">${escapeHtml(post.created || "post")}</p>
+            <h3>${escapeHtml(post.title || "Untitled post")}</h3>
+            <p>${escapeHtml(previewText(post.body, 320))}</p>
+          `;
+          elements.publicPosts.appendChild(article);
+        });
+
+        elements.publicVisuals.innerHTML = visuals.length ? "" : emptyCard("Published photos and illustrations will appear here.");
+        visuals.forEach((visual) => {
+          const figure = document.createElement("figure");
+          figure.className = "visual-card";
+          const meta = [visual.place, visual.eventDate, visual.people, visual.source].filter(Boolean).join(" / ");
+          figure.innerHTML = `
+            ${visual.imageUrl ? `<img src="${escapeHtml(visual.imageUrl)}" alt="${escapeHtml(visual.title || visual.kind)}" />` : ""}
+            <figcaption>
+              <p class="card__kicker">${escapeHtml(visual.kind)}</p>
+              <h3>${escapeHtml(visual.title || "Untitled")}</h3>
+              ${meta ? `<span>${escapeHtml(meta)}</span>` : ""}
+              <p>${escapeHtml(visual.body || "")}</p>
+            </figcaption>
+          `;
+          elements.publicVisuals.appendChild(figure);
+        });
+      };
+
+      const renderAll = () => {
+        updateAuthUi();
+        renderLibrary();
+        renderPublic();
+      };
+
+      const loadLibrary = async () => {
+        if (!hasServerApi) {
+          libraryItems = cachedItems();
+          isAdmin = Boolean(adminKey);
+          setStatus("Local file preview: saves stay in this browser only.");
+          renderAll();
+          return;
+        }
+
+        try {
+          const payload = await apiRequest("GET");
+          libraryItems = payload.items || [];
+          isAdmin = payload.mode === "admin";
+          cacheItems(libraryItems);
+          setStatus(isAdmin ? "Loaded all saved work from Netlify." : "Loaded published work from Netlify.", "good");
+        } catch (error) {
+          isAdmin = false;
+          libraryItems = cachedItems().filter((item) => item.status === "published");
+          setStatus(`${error.message}. Showing cached published work.`, "bad");
+          if (adminKey) setAdminStatus("That admin key was not accepted.", "bad");
+        }
+
+        renderAll();
+      };
+
+      const saveForm = async (form) => {
+        if (!isAdmin) {
+          setStatus("Enter the admin key before saving.", "bad");
+          return;
+        }
+
+        const data = new FormData(form);
+        const kind = form.dataset.kind;
+        const textFile = data.get("textFile");
+        const imageFile = data.get("imageFile");
+        const importedText = textFile?.size ? await readFileAsText(textFile) : "";
+        const uploadedImage = imageFile?.size ? await readFileAsDataUrl(imageFile) : "";
+        const imageUrl = uploadedImage || data.get("imageUrl") || "";
+        const title = data.get("title")?.trim() || `${kind[0].toUpperCase()}${kind.slice(1)} ${today()}`;
+        const item = {
+          kind,
+          title,
+          status: data.get("status") || "draft",
+          body: (importedText || data.get("body") || "").trim(),
+          tags: parseTags(data.get("tags") || ""),
+          imageUrl,
+          mood: data.get("mood") || "",
+          source: data.get("source") || "",
+          place: data.get("place") || "",
+          eventDate: data.get("eventDate") || "",
+          people: data.get("people") || ""
+        };
+
+        try {
+          setStatus("Saving to Netlify...");
+          const payload = hasServerApi
+            ? await apiRequest("POST", { item })
+            : { items: [Object.assign({ id: crypto.randomUUID(), created: today(), updated: new Date().toISOString() }, item), ...libraryItems] };
+          libraryItems = payload.items || [];
+          cacheItems(libraryItems);
+          form.reset();
+          setStatus(`Saved ${kind}.`, "good");
+          renderAll();
+        } catch (error) {
+          setStatus(error.message, "bad");
+        }
+      };
+
+      document.querySelectorAll(".creator-panel").forEach((form) => {
+        form.addEventListener("submit", (event) => {
+          event.preventDefault();
+          saveForm(form);
+        });
+
+        const textInput = form.querySelector('input[name="textFile"]');
+        if (textInput) {
+          textInput.addEventListener("change", async () => {
+            const file = textInput.files[0];
+            if (!file) return;
+            const text = await readFileAsText(file);
+            form.querySelector('textarea[name="body"]').value = text;
+            if (!form.querySelector('input[name="title"]').value) {
+              form.querySelector('input[name="title"]').value = file.name.replace(/\.[^.]+$/, "");
+            }
+          });
+        }
+      });
+
+      elements.tabs.forEach((tab) => {
+        tab.addEventListener("click", () => {
+          elements.tabs.forEach((item) => item.classList.remove("is-active"));
+          elements.panels.forEach((panel) => panel.classList.remove("is-active"));
+          tab.classList.add("is-active");
+          document.querySelector(`#${tab.dataset.panel}`).classList.add("is-active");
+        });
+      });
+
+      document.querySelectorAll("[data-prompt]").forEach((button) => {
+        button.addEventListener("click", () => {
+          const options = prompts[button.dataset.prompt] || prompts.poem;
+          const next = options[Math.floor(Math.random() * options.length)];
+          elements.prompt.textContent = next;
+          const form = button.closest("form");
+          const body = form.querySelector('textarea[name="body"]');
+          if (body && !body.value.trim()) body.value = next;
+        });
+      });
+
+      elements.saveAdminKey.addEventListener("click", async () => {
+        adminKey = elements.adminKey.value.trim();
+        if (!adminKey) {
+          localStorage.removeItem(adminKeyStorageKey);
+          isAdmin = false;
+          renderAll();
+          return;
+        }
+
+        localStorage.setItem(adminKeyStorageKey, adminKey);
+        setAdminStatus("Checking key...");
+        await loadLibrary();
+      });
+
+      elements.forgetAdminKey.addEventListener("click", async () => {
+        adminKey = "";
+        localStorage.removeItem(adminKeyStorageKey);
+        isAdmin = false;
+        await loadLibrary();
+      });
+
+      elements.library.addEventListener("click", async (event) => {
+        const button = event.target.closest("button[data-action]");
+        if (!button) return;
+        const item = libraryItems.find((entry) => entry.id === button.dataset.id);
+        if (!item) return;
+
+        if (button.dataset.action === "export") {
+          downloadText(`${item.created || today()}-${slugify(item.title)}.md`, itemToMarkdown(item), "text/markdown");
+          return;
+        }
+
+        if (!isAdmin) {
+          setStatus("Enter the admin key before changing saved work.", "bad");
+          return;
+        }
+
+        try {
+          if (button.dataset.action === "publish") {
+            const payload = await apiRequest("PATCH", {
+              id: item.id,
+              updates: { status: item.status === "published" ? "draft" : "published" }
+            });
+            libraryItems = payload.items || [];
+            setStatus("Publish state updated.", "good");
+          }
+
+          if (button.dataset.action === "delete") {
+            const payload = await apiRequest("DELETE", { id: item.id });
+            libraryItems = payload.items || [];
+            setStatus("Item deleted.", "good");
+          }
+
+          cacheItems(libraryItems);
+          renderAll();
+        } catch (error) {
+          setStatus(error.message, "bad");
+        }
+      });
+
+      elements.exportJson.addEventListener("click", () => {
+        downloadText(`jeradxyz-library-${today()}.json`, JSON.stringify(libraryItems, null, 2), "application/json");
+      });
+
+      elements.clearLibrary.addEventListener("click", async () => {
+        if (!isAdmin) {
+          setStatus("Enter the admin key before clearing saved work.", "bad");
+          return;
+        }
+        const confirmed = confirm("Clear all saved studio items from Netlify?");
+        if (!confirmed) return;
+
+        try {
+          const payload = await apiRequest("DELETE", { all: true });
+          libraryItems = payload.items || [];
+          cacheItems(libraryItems);
+          setStatus("Library cleared.", "good");
+          renderAll();
+        } catch (error) {
+          setStatus(error.message, "bad");
+        }
+      });
+
+      if (adminKey) elements.adminKey.value = adminKey;
+      loadLibrary();
+    </script>
+  </body>
+</html>
